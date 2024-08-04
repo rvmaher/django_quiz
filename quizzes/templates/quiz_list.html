@@ -1,0 +1,13 @@
+{% extends "layout.html" %} {% block content %}
+<h1>Available Quizzes</h1>
+{% comment %} {% if request.GET.completed == 'true' %}
+<p>You have already completed this quiz.</p>
+{% endif %} {% endcomment %}
+<ul>
+  {% for quiz in quizzes %}
+  <li>
+    <a href="{% url 'quiz_detail' quiz.id %}">{{ quiz.title }}</a>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

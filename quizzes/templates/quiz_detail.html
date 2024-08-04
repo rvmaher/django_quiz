@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+<title>{{ quiz.title }}</title>
+{% block content %}
+    <h1>{{ quiz.title }}</h1>
+    <p>{{ quiz.description }}</p>
+    <form method="post" action="{% url 'submit_quiz' quiz.id %}">
+        {% csrf_token %}
+        {% for question in questions %}
+            <fieldset>
+                <legend>{{ question.text }}</legend>
+                {% for answer in question.answers.all %}
+                    <label>
+                        <input type="radio"
+                               name="question_{{ question.id }}"
+                               value="{{ answer.id }}">
+                        {{ answer.text }}
+                    </label>
+                    <br>
+                {% endfor %}
+            </fieldset>
+        {% endfor %}
+        <button type="submit">Submit Quiz</button>
+    </form>
+{% endblock content %}
